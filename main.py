@@ -5,7 +5,7 @@ fields = ["Day", "% of Pop"]
 data = []
 now = datetime.now()
 
-
+# This is an ammendment
 def sir_model(infected_population: float,
               infection_rate: float,
               recovery_rate: float,
