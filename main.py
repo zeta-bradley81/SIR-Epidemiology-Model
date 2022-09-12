@@ -1,5 +1,9 @@
 import csv
 from datetime import datetime
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
 
 fields = ["Day", "% of Pop"]
 data = []
@@ -9,6 +13,10 @@ infected_population = ""
 infection_rate = ""
 recovery_rate = ""
 vac = ""
+
+@app.route("/")
+def front_page():
+    return render_template("index.html")
 
 
 def user_input():
@@ -111,3 +119,7 @@ def sir_model(infected_population,
         output.writerows(data)
 args = user_input()
 sir_model(args[0], args[1], args[2], args[3])
+
+
+if __name__ == '__main__':
+    app.run()
