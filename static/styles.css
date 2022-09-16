@@ -1,0 +1,71 @@
+body{
+background-color: #EEE3CB;
+font-size: 1.8em;
+line-height: 150%;
+}
+
+h1{
+font-family: serif;
+text-align: center;
+}
+
+
+input[type=submit]{
+  align-items: center;
+  background-color: #277BC0;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  height: 100px;
+  min-width: 0px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: serif;
+  font-size: 3.6em;
+  justify-content: center;
+  line-height: 20px;
+  margin-top: -5%;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  vertical-align: middle;
+}
+
+input[type=submit]:hover, input[type=submit]:focus
+ {
+  background-color: #16437E;
+  color: #ffffff;
+}
+
+
+input[type=text]{
+width: 4em;
+margin-left: 15px;
+
+}
+label{
+margin-left: 10px;}
+.flex-container{
+display: flex;
+margin: auto;
+align-items: baseline;
+align-content: flex-start;
+justify-content: space-evenly;
+flex-direction: column
+}
+
+.flex-item{
+margin: auto;
+flex-direction: row;
+padding-bottom: 2em;
+align-self: end
+}
+
+#vax-data{
+margin-top: -5%;
+}
+

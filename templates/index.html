@@ -3,33 +3,55 @@
   <head>
     <meta charset="utf-8">
     <title>SIR Epidemiology Model</title>
+    <link rel="stylesheet" href="../static/styles.css">
   </head>
 
   <body>
   <h1>SIR Epidemiology Model</h1>
-    <form class="" action="{{ url_for('front_page') }}" method="post">
-      <p>Is there a vaccine available?</p>
-      <label for="vax_radio_y">Yes</label>
-      <input type="radio" name="vax_radio" id="vax_radio_y" value="True" >
-      <label for="vax_radio">No</label>
-      <input checked="checked" name="vax_radio" id="vax_radio" type="radio" value="False">
-      <br>
-      <label for="vax_per">If yes, what percentage of the population is vaccinated?</label>
-      <input type="text" name="vax_per" id="vax_per" value=0>
-      <label>%</label> <br>
-      <label for="vax_eff">If yes, how effective is the vaccine?</label>
-      <input type="text" name="vax_eff" id="vax_eff" value=0>
-      <label>%</label> <br>
-      <label for="inf_perc">What percentage of the population is initially infected?</label>
-      <input type="text" name="inf_perc" id="inf_perc">
-      <label >%</label> <br>
-      <label for="inf_rate">How infectious is the disease?</label>
-      <input type="text" name="inf_rate" id="inf_rate">
-      <label >%</label> <br>
-      <label for="rec_days">How many days does it take to recover?</label>
-      <input type="text" name="rec_days" id="rec_days">
-      <br>
-      <input type="submit" name="form_submit" value="Submit">
-    </form>
+      <form class="flex-container" action="{{ url_for('front_page') }}" method="post">
+          <div class="flex-item">
+            <label>Is there a vaccine available?</label>
+            <label for="vax_radio_y">Yes</label>
+            <input type="radio" name="vax_radio" id="vax_radio_y" value="True" >
+            <label for="vax_radio">No</label>
+            <input checked="checked" name="vax_radio" id="vax_radio" type="radio" value="False">
+          </div>
+          <div class="flex-item">
+              <table id="vax-data">
+                  <tr>
+                      <td> <label for="vax_per">If yes, what percentage of the population is vaccinated?</label></td>
+                      <td><input type="text" name="vax_per" id="vax_per"></td>
+                      <td><label> %</label></td>
+                  </tr>
+                  <tr>
+                      <td><label for="vax_eff">If yes, how effective is the vaccine?</label></td>
+                      <td><input type="text" name="vax_eff" id="vax_eff"></td>
+                      <td><label> %</label></td>
+                  </tr>
+                  <tr>
+                      <td><label for="inf_perc">What percentage of the population is initially infected?</label></td>
+                      <td><input type="text" name="inf_perc" id="inf_perc"></td>
+                      <td><label > %</label></td>
+                  </tr>
+                  <tr>
+                    <td><label for="inf_rate">How infectious is the disease? (β as a percentage)</label></td>
+                    <td><input type="text" name="inf_rate" id="inf_rate"></td>
+                    <td><label>%</label> </td>
+                  </tr>
+                  <tr>
+                      <td><label for="rec_days">How many days does it take to recover?</label></td>
+                      <td><input type="text" name="rec_days" id="rec_days"></td>
+                      <td><label>days</label></td>
+                  </tr>
+<!--                  <tr>-->
+<!--                      <td><input class="sub-button" type="submit" name="form_submit" value="Submit"></td>-->
+<!--                  </tr>-->
+              </table>
+          </div>
+          <div class="flex-item">
+              <input class="sub-button" type="submit" name="form_submit" value="Submit">
+          </div>
+      </form>
+  <img src='static/sir_web_fig_02.png'/>
   </body>
 </html>
