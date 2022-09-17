@@ -17,7 +17,6 @@ recovery_days = ""
 vac = 0
 
 
-
 # ~~~~~~~~~~  This is the data processing part of the program  ~~~~~~~~~~
 # This is the function that process the input and outputs CSV data
 def sir_model(inf_pop, inf_rate, rec_days, v_info):
@@ -29,7 +28,7 @@ def sir_model(inf_pop, inf_rate, rec_days, v_info):
     recovered_population: float = 0.
     day = 0
     recovery_rate = 1 / rec_days
-    chart_subtitle = f"Infection Rate = {int((b)*100)}%, Recovery Rate = {int(rec_days)} days, \nEffective Vaccination Rate = {int(v_info*100)}%"
+    chart_subtitle = f"Infection Rate = {int(b * 100)}%, Recovery Rate = {int(rec_days)} days, \nEffective Vaccination Rate = {int(v_info * 100)}%"
 
     """ This while loop runs the SIR model according to the input values entered into the browser.
     the multiplication and division limit the csv data to two decimal places. """
@@ -50,14 +49,6 @@ def sir_model(inf_pop, inf_rate, rec_days, v_info):
         output.writerows(calculated_data)
 
 
-# def input_check(form_value):
-#     if not form_value.isnumeric():
-#         return True
-#     elif 0 < form_value <= 100:
-#         pass
-#     else:
-#         return True
-
 # ~~~~~~~~~~~~~~~~~  This is the web part of the program  ~~~~~~~~~~~~~~~~~
 app = Flask(__name__)
 app.secret_key = "thisIsASecretKey"
@@ -68,7 +59,6 @@ app.secret_key = "thisIsASecretKey"
 def front_page():
     global infected_decimal, infection_rate, recovery_days, vac
     error_state = False
-    error_message = "Please enter a whole number between"
     # This if/else condition determines whether to post the homepage or import form data and then redirect
     if request.method == "POST":
         vax_state = request.form['vax_radio']
@@ -152,6 +142,4 @@ def download_page_2():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
+    app.run(debug=True, host='0.0.0.0', port=80)
