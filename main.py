@@ -1,4 +1,3 @@
-# TODO use try/except to sanitize bad input, put up flash warnings
 # ~~~~~~~~~~  Importing Packages and Setting Variables  ~~~~~~~~~~
 import base64
 import csv
