@@ -4,7 +4,7 @@
 
 import csv
 from datetime import datetime
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, send_file
 import base64
 from io import BytesIO
 import pandas as pd
@@ -45,17 +45,13 @@ def sir_model(inf_pop, inf_rate, rec_days, v_info):
             recovered_population += infected_population * recovery_rate
             infected_population -= infected_population * recovery_rate
         calculated_data.append([day, int(infected_population * 10000) / 100])
-    print("done this")
 
-    # with open(f"KEY_{now.ctime()}.csv", 'w') as file:
-    #     file.write(title)
-    #
-    # with open(f'SIR_{now.ctime()}.csv', 'w') as file:
-    #     output = csv.writer(file)
-    #     output.writerow(columns)
-    #     output.writerows(calculated_data)
+    with open('csv_delivery.csv', 'w') as file:
+        output = csv.writer(file)
+        output.writerow(columns)
+        output.writerows(calculated_data)
 
-
+# ~~~~~~~~~~~~~~~~~  This is the web part of the program  ~~~~~~~~~~~~~~~~~
 app = Flask(__name__)
 
 
@@ -75,14 +71,12 @@ def front_page():
         infection_rate = float(request.form["inf_rate"]) / 100
         recovery_days = int(request.form["rec_days"])
         sir_model(infected_decimal, infection_rate, recovery_days, vac)
-        print('done that')
         return results_page()
-
     else:
         return render_template("index.html")
 
 
-# noinspection PyTypeChecker
+
 def results_page():
     global calculated_data
     df = pd.DataFrame(calculated_data, columns=columns)
@@ -93,14 +87,24 @@ def results_page():
     ax.set_ylabel("Percentage of Population Currently Infected")
     ax.set_xticks(np.arange(0, len(df.day_num) + 1, step=5))
     ax.set_yticks(np.arange(0, (df.perc_of_pop.max() + 5), step=10))
+    fig.savefig("speedy_delivery.png", format='png')
     buf = BytesIO()
     fig.savefig(buf, format='png')
+    # noinspection PyTypeChecker
     image_data = base64.b64encode(buf.getbuffer()).decode("ascii")
     buf.flush()
     ax.clear()
     calculated_data = []
     # return f"<img src='data:image/png;base64,{image_data}'/>"
     return render_template("results.html", subtitle=chart_subtitle, picture=image_data)
+
+@app.route("/download1")
+def download_page_1():
+    return send_file("csv_delivery.csv", as_attachment=True)
+
+@app.route("/download2")
+def download_page_2():
+    return send_file("speedy_delivery.png", as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)

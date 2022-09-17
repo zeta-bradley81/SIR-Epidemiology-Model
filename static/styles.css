@@ -73,6 +73,10 @@ font-family: sans-serif;
 align-self: end
 }
 
+.footer_links{
+padding-right: 1.5em;
+}
+
 #the_subtitle{
 padding: .33em;
 font-family: sans-serif;

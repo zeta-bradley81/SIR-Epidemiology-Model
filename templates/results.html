@@ -13,6 +13,11 @@
 
 </div>
 </body>
-<footer class="flex-container"> <a class=flex-item_r href="{{ url_for('front_page') }}">home</a>
+<footer class="flex-container">
+    <p class="flex-item_r">
+    <span class="footer_links"> <a href="{{ url_for('front_page') }}">home</a> </span>
+    <span class="footer_links"> <a href="{{ url_for('download_page_1') }}">download as csv data</a> </span>
+    <span class="footer_links"> <a href="{{ url_for('download_page_2') }}">download as image </a> </span>
+    </p>
 </footer>
 </html>
