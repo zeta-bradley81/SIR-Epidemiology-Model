@@ -62,6 +62,11 @@ justify-content: space-evenly;
 flex-direction: column
 }
 
+.flashes{
+color: red;
+background-color:black;
+}
+
 .flex-item{
 margin: auto;
 flex-direction: row;

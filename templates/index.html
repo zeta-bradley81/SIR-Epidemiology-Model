@@ -8,6 +8,15 @@
 
   <body>
   <h1>SIR Epidemiology Model</h1>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes flex-container">
+            {% for message in messages %}
+              <li class="flex-item_r">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
       <form class="flex-container" action="{{ url_for('front_page') }}" method="post">
           <div class="flex-item">
             <label>Is there a vaccine available?</label>
