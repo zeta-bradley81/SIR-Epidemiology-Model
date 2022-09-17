@@ -30,7 +30,7 @@ def sir_model(inf_pop, inf_rate, rec_days, v_info):
     recovered_population: float = 0.
     day = 0
     recovery_rate = 1 / rec_days
-    chart_subtitle = f"Infection Rate = {int((b)*100)}%,    Recovery Rate = {int(rec_days)} days,    Effective Vaccination Rate = {int(v_info*100)}%"
+    chart_subtitle = f"Infection Rate = {int((b)*100)}%, Recovery Rate = {int(rec_days)} days, \nEffective Vaccination Rate = {int(v_info*100)}%"
 
     """ This while loop runs the SIR model according to the input values entered into the browser.
     the multiplication and division limit the csv data to two decimal places. """
@@ -113,7 +113,7 @@ def results_page():
     ax.plot(df.day_num, df.perc_of_pop, color="red")
     ax.set_xlabel("Day Number")
     ax.set_ylabel("Percentage of Population Currently Infected")
-
+    ax.set_title(chart_subtitle)
     # Dynamically change the chart's tick markings depending on the size of the data set
     # x-axis
     if df.day_num.max() <= 100:
@@ -127,6 +127,8 @@ def results_page():
         ax.set_yticks(npar(0, (df.perc_of_pop.max() + 1), step=1))
     # Saves the image for later download
     fig.savefig("speedy_delivery.png", format='png')
+    # removes extra caption for display
+    ax.set_title(" ")
     # loads the image into a buffer for web display
     buf = BytesIO()
     fig.savefig(buf, format='png')
