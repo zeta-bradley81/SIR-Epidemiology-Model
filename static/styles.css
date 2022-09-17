@@ -4,6 +4,9 @@ font-size: 1.8em;
 line-height: 150%;
 }
 
+footer{
+padding-top: 1em;
+}
 
 h1, h3{
 font-family: serif;

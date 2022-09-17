@@ -1,5 +1,5 @@
 
-# TODO figure out how to get/give the csv file to the client.
+# TODO Put in more comments for future reference
 # TODO use try/except to sanitize bad input, put up flash warnings
 
 import csv
@@ -36,7 +36,8 @@ def sir_model(inf_pop, inf_rate, rec_days, v_info):
     recovery_rate = 1 / rec_days
     # the while conditions limit to 2 decimal places and the day is to just limit data
     chart_subtitle = f"Infection Rate = {b},  Recovery Rate = {rec_days} days,  Effective Vaccination Rate = {v_info}"
-    while (int(infected_population * 10000) / 100) > 0.05 and day < 100:
+    # while (int(infected_population * 10000) / 100) > 0.05 and day < 100:
+    while (int(infected_population * 10000) / 100) > 0.05:
         day += 1
         new_infections = b * susceptible_population * infected_population
         susceptible_population -= new_infections
@@ -45,7 +46,7 @@ def sir_model(inf_pop, inf_rate, rec_days, v_info):
             recovered_population += infected_population * recovery_rate
             infected_population -= infected_population * recovery_rate
         calculated_data.append([day, int(infected_population * 10000) / 100])
-
+    print(f"day = {day}")
     with open('csv_delivery.csv', 'w') as file:
         output = csv.writer(file)
         output.writerow(columns)
@@ -85,8 +86,15 @@ def results_page():
     ax.plot(df.day_num, df.perc_of_pop, color="red")
     ax.set_xlabel("Day Number")
     ax.set_ylabel("Percentage of Population Currently Infected")
-    ax.set_xticks(np.arange(0, len(df.day_num) + 1, step=5))
-    ax.set_yticks(np.arange(0, (df.perc_of_pop.max() + 5), step=10))
+    if df.day_num.max() <= 100:
+        ax.set_xticks(np.arange(0, len(df.day_num) + 1, step=5))
+    else:
+        ax.set_xticks(np.arange(0, len(df.day_num) + 1, step=20))
+
+    if df.perc_of_pop.max() >= 10:
+        ax.set_yticks(np.arange(0, (df.perc_of_pop.max() + 5), step=10))
+    else:
+        ax.set_yticks(np.arange(0, (df.perc_of_pop.max() + 1), step=1))
     fig.savefig("speedy_delivery.png", format='png')
     buf = BytesIO()
     fig.savefig(buf, format='png')
