@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>SIR Epedimiology Model</title>
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
+<div class="flex-container">
+    <h3 class="flex-item_r">SIR Epidemiology Model:</h3>
+    <h4 class="flex-item_r" id="the_subtitle">{{subtitle}}</h4>
+    <img class="flex-item_r" src='data:image/png;base64,{{picture}}'/>
 
+</div>
 </body>
+<footer class="flex-container"> <a class=flex-item_r href="{{ url_for('front_page') }}">home</a>
+</footer>
 </html>

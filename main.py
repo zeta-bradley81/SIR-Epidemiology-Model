@@ -1,7 +1,6 @@
-# TODO figure out matplot lab and NOT PYPLOT
+
 # TODO figure out how to get/give the csv file to the client.
 # TODO use try/except to sanitize bad input, put up flash warnings
-# TODO go directly to a pandas dataframe instead of a csv file
 
 import csv
 from datetime import datetime
@@ -17,6 +16,7 @@ import numpy as np
 
 columns = ["day_num", "perc_of_pop"]
 calculated_data = []
+chart_subtitle = ""
 now = datetime.now()
 
 infected_decimal = ""
@@ -27,6 +27,7 @@ vac = 0
 
 # This is the function that process the input and outputs a CSV
 def sir_model(inf_pop, inf_rate, rec_days, v_info):
+    global chart_subtitle
     infected_population = inf_pop
     b: float = inf_rate
     susceptible_population: float = (1 - v_info) - infected_population
@@ -34,7 +35,7 @@ def sir_model(inf_pop, inf_rate, rec_days, v_info):
     day = 0
     recovery_rate = 1 / rec_days
     # the while conditions limit to 2 decimal places and the day is to just limit data
-    title = f"SIR Model: Infection Rate = {b}, Recovery Rate = {rec_days} days, Effective Vaccination Rate = {v_info}"
+    chart_subtitle = f"Infection Rate = {b},  Recovery Rate = {rec_days} days,  Effective Vaccination Rate = {v_info}"
     while (int(infected_population * 10000) / 100) > 0.05 and day < 100:
         day += 1
         new_infections = b * susceptible_population * infected_population
@@ -81,24 +82,25 @@ def front_page():
         return render_template("index.html")
 
 
+# noinspection PyTypeChecker
 def results_page():
+    global calculated_data
     df = pd.DataFrame(calculated_data, columns=columns)
-    fig = Figure()
+    fig = Figure(dpi=150, figsize=(7,4))
     ax = fig.subplots()
     ax.plot(df.day_num, df.perc_of_pop, color="red")
     ax.set_xlabel("Day Number")
     ax.set_ylabel("Percentage of Population Currently Infected")
-    # ax.set_title(f"SIR Model: Infection Rate = {b}, Recovery Rate = {rec_days} days, Effective Vaccination Rate = {v_info}")
-    ax.set_title("SIR Epidemiology Model")
     ax.set_xticks(np.arange(0, len(df.day_num) + 1, step=5))
-    ax.set_yticks(np.arange(0, (df.perc_of_pop.max() + 5), step=5))
+    ax.set_yticks(np.arange(0, (df.perc_of_pop.max() + 5), step=10))
     buf = BytesIO()
     fig.savefig(buf, format='png')
     image_data = base64.b64encode(buf.getbuffer()).decode("ascii")
     buf.flush()
     ax.clear()
-    return f"<img src='data:image/png;base64,{image_data}'/>"
-    # return f"<img src='static/sir_web_fig_02.png'/>"
+    calculated_data = []
+    # return f"<img src='data:image/png;base64,{image_data}'/>"
+    return render_template("results.html", subtitle=chart_subtitle, picture=image_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

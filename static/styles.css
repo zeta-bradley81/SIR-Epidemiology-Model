@@ -4,7 +4,8 @@ font-size: 1.8em;
 line-height: 150%;
 }
 
-h1{
+
+h1, h3{
 font-family: serif;
 text-align: center;
 }
@@ -63,6 +64,18 @@ margin: auto;
 flex-direction: row;
 padding-bottom: 2em;
 align-self: end
+}
+
+.flex-item_r{
+margin: auto;
+flex-direction: row;
+font-family: sans-serif;
+align-self: end
+}
+
+#the_subtitle{
+padding: .33em;
+font-family: sans-serif;
 }
 
 #vax-data{
