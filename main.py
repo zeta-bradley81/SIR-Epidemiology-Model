@@ -1,12 +1,13 @@
 # ~~~~~~~~~~  Importing Packages and Setting Variables  ~~~~~~~~~~
 import base64
 import csv
-import pandas as pd
+# import pandas as pd
 
 from flask import Flask, flash, render_template, request, url_for, send_file
 from io import BytesIO
 from matplotlib.figure import Figure
 from numpy import arange as npar
+from pandas import DataFrame as pdsdf
 
 columns = ["day_num", "perc_of_pop"]
 calculated_data = []
@@ -94,8 +95,8 @@ def results_page():
     global calculated_data
 
     # Instantiate a Pandas dataframe from the output of the SIR model
-    df = pd.DataFrame(calculated_data, columns=columns)
-
+    # df = pd.DataFrame(calculated_data, columns=columns)
+    df = pdsdf(calculated_data, columns=columns)
     # Generate the chart image
     fig = Figure(dpi=150, figsize=(7, 4))
     ax = fig.subplots()
